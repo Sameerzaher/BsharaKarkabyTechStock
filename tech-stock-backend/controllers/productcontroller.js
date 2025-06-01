@@ -8,7 +8,9 @@ exports.getAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const { name, description, price, unit_in_stock, supplier_id, category_id, image } = req.body;
+  const image = req.file ? req.file.path : null;
+  const { name, description, price, unit_in_stock, supplier_id, category_id } = req.body;
+
   const sql = `INSERT INTO Products (name, description, price, unit_in_stock, supplier_id, category_id, image)
                VALUES (?, ?, ?, ?, ?, ?, ?)`;
   db.query(sql, [name, description, price, unit_in_stock, supplier_id, category_id, image], (err, result) => {
